@@ -132,7 +132,7 @@ handles the current request:
 ```php
 <?php
 
-use Modules\Default\DefaultModule;
+use Src\Modules\Default\DefaultModule;
 
 return [
     'pano' => env('APP_ENV', 'production') === 'local' ? DefaultModule::class : null,
@@ -209,7 +209,7 @@ implementations live in `Pano\Foundation`.
 
 > **Important:** Always extend the `Pano\Kernel\Base*` contracts (and use the
 > `Pano\Foundation\*` implementations). Application modules belong under the
-> `Modules\` namespace (not `Pano\Modules\`). The older `Pano\Core` / `Pano\Enum`
+> `Src\Modules\` namespace (not `Pano\Src\Modules\`). The older `Pano\Core` / `Pano\Enum`
 > namespaces no longer exist.
 
 ---
@@ -222,7 +222,7 @@ methods: `routes()`, `view()`, and `log()`.
 ```php
 <?php
 
-namespace Modules\Blog;
+namespace Src\Modules\Blog;
 
 use Pano\Foundation\Logger;
 use Pano\Foundation\Router;
@@ -231,9 +231,9 @@ use Pano\Kernel\BaseLogger;
 use Pano\Kernel\BaseModule;
 use Pano\Kernel\BaseRouter;
 use Pano\Kernel\BaseView;
-use Modules\Blog\Handlers\PostHandler;
-use Modules\Blog\Interceptors\AuthInterceptor;
-use Modules\Blog\Commands\PublishCommand;
+use Src\Modules\Blog\Handlers\PostHandler;
+use Src\Modules\Blog\Interceptors\AuthInterceptor;
+use Src\Modules\Blog\Commands\PublishCommand;
 
 final readonly class BlogModule extends BaseModule
 {
@@ -268,10 +268,10 @@ final readonly class BlogModule extends BaseModule
 module's own directory via reflection:
 
 ```php
-$this->viewPath();   // .../modules/Blog/Views
-$this->filePath();   // .../modules/Blog/Files
-$this->logPath();    // .../modules/Blog/Logs
-$this->path();       // .../modules/Blog
+$this->viewPath();   // .../Modules/Blog/Views
+$this->filePath();   // .../Modules/Blog/Files
+$this->logPath();    // .../Modules/Blog/Logs
+$this->path();       // .../Modules/Blog
 $this->name();       // "BlogModule" (short class name)
 ```
 
@@ -279,8 +279,8 @@ Register the module in `config/modules.php`:
 
 ```php
 return [
-    ''     => \Modules\Default\DefaultModule::class,
-    'blog' => \Modules\Blog\BlogModule::class,
+    ''     => \Src\Modules\Default\DefaultModule::class,
+    'blog' => \Src\Modules\Blog\BlogModule::class,
 ];
 ```
 
@@ -340,7 +340,7 @@ The handler receives the request and its module via constructor injection:
 ```php
 <?php
 
-namespace Modules\Blog\Handlers;
+namespace Src\Modules\Blog\Handlers;
 
 use Pano\Foundation\Response;
 use Pano\Kernel\BaseHandler;
@@ -526,7 +526,7 @@ Interceptors are cross-cutting filters. They run **before** the handler
 ```php
 <?php
 
-namespace Modules\Blog\Interceptors;
+namespace Src\Modules\Blog\Interceptors;
 
 use Pano\Kernel\BaseInterceptor;
 use Pano\Kernel\BaseResponse;
@@ -768,8 +768,8 @@ Inside a module's `routes()`, call `command()` with a command name and a
 command class:
 
 ```php
-$router->command('app:info', \Modules\Default\Commands\DefaultCommand::class);
-$router->command('blog:publish', \Modules\Blog\Commands\PublishCommand::class);
+$router->command('app:info', \Src\Modules\Default\Commands\DefaultCommand::class);
+$router->command('blog:publish', \Src\Modules\Blog\Commands\PublishCommand::class);
 ```
 
 The command class must extend `BaseCommand` and implement `handle()`:
@@ -777,7 +777,7 @@ The command class must extend `BaseCommand` and implement `handle()`:
 ```php
 <?php
 
-namespace Modules\Blog\Commands;
+namespace Src\Modules\Blog\Commands;
 
 use Pano\Kernel\BaseCommand;
 use Pano\Kernel\ResultCodeEnum;
@@ -862,7 +862,7 @@ For richer domain errors, extend `BaseException` and implement `toArray()` and
 `toHtml()`:
 
 ```php
-namespace Modules\Blog\Exceptions;
+namespace Src\Modules\Blog\Exceptions;
 
 use Pano\Kernel\BaseException;
 
@@ -934,7 +934,7 @@ A starter test is included. Example:
 namespace Tests;
 
 use PHPUnit\Framework\TestCase;
-use Modules\Default\DefaultModule;
+use Src\Modules\Default\DefaultModule;
 
 class DefaultModuleTest extends TestCase
 {

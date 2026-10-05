@@ -4,7 +4,7 @@ namespace Tests;
 
 use Pano\Foundation\Request;
 use PHPUnit\Framework\TestCase;
-use Modules\Default\DefaultModule;
+use Src\Modules\Default\DefaultModule;
 
 class DefaultModuleTest extends TestCase
 {

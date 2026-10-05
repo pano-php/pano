@@ -16,7 +16,7 @@ Welcome | Pano
     </p>
 
     <div class="footer">
-        <?= date("Y") ?> &copy; Powered by <span><a href="https://pano-php.github.io/pano"><?= $name ?></a><small> <?= $version ?></small> </span>
+        <?= date("Y") ?> &copy; Powered by <span><a href="https://pano-php.github.io/"><?= $name ?></a><small> <?= $version ?></small> </span>
     </div>
 </div>
 <?php $this->end() ?>

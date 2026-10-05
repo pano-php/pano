@@ -17,7 +17,11 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.+)/$ /$1 [R=301,L]
 
-    # Serve existing files and directories directly
+    # Block direct access to any .php or .html file except index.php
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^(?!index\.php$).+\.(php|html)$ - [F,L]
+
+    # Serve existing non-PHP/non-HTML files and directories directly
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d
     RewriteRule ^ - [L]

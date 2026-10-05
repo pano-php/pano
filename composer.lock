@@ -31,7 +31,7 @@
             },
             "autoload": {
                 "files": [
-                    "src/helpers.php"
+                    "src/Foundation/helpers.php"
                 ],
                 "psr-4": {
                     "Pano\\": "src/"

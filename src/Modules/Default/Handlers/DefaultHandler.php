@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Modules\Default\Handlers;
+namespace Src\Modules\Default\Handlers;
 
 use Composer\InstalledVersions;
-use Pano\Kernel\BaseHandler;
 use Pano\Foundation\Response;
+use Pano\Kernel\BaseHandler;
 
 final class DefaultHandler extends BaseHandler
 {
@@ -16,9 +16,9 @@ final class DefaultHandler extends BaseHandler
 
         return Response::html(
             $this->module->view()
-            ->with(['name' => env('APP_NAME', 'Pano'), 'version' => $version])
-            ->layout('layout')
-            ->render('home')
+                ->with(['name' => env('APP_NAME', 'Pano'), 'version' => $version])
+                ->layout('layout')
+                ->render('home')
         );
     }
 }

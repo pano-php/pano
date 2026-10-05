@@ -1,11 +1,9 @@
 <?php
 
-namespace Modules\Default\Interceptors;
+namespace Src\Modules\Default\Interceptors;
 
 use Pano\Kernel\BaseInterceptor;
 use Pano\Kernel\BaseResponse;
-use Pano\Foundation\Exception;
-use Pano\Foundation\Response;
 
 class DefaultInterceptor extends BaseInterceptor
 {
