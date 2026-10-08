@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "35119742e1c24920f911590032e37418",
+    "content-hash": "42a2be0e4ceaac66d8e0760e1741a843",
     "packages": [
         {
             "name": "pano-php/framework",
-            "version": "v1.7.0",
+            "version": "v1.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pano-php/framework.git",
-                "reference": "d492152151d3074d5d37e1a6d11a3f2042992c55"
+                "reference": "e659bbacf2e0b57a4263890e3d86350eb2fa9669"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pano-php/framework/zipball/d492152151d3074d5d37e1a6d11a3f2042992c55",
-                "reference": "d492152151d3074d5d37e1a6d11a3f2042992c55",
+                "url": "https://api.github.com/repos/pano-php/framework/zipball/e659bbacf2e0b57a4263890e3d86350eb2fa9669",
+                "reference": "e659bbacf2e0b57a4263890e3d86350eb2fa9669",
                 "shasum": ""
             },
             "require": {
@@ -57,9 +57,9 @@
                 "php"
             ],
             "support": {
-                "source": "https://github.com/pano-php/framework/tree/v1.7.0"
+                "source": "https://github.com/pano-php/framework/tree/v1.7.1"
             },
-            "time": "2026-10-05T22:32:06+00:00"
+            "time": "2026-10-08T20:45:56+00:00"
         }
     ],
     "packages-dev": [
