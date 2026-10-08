@@ -160,12 +160,17 @@ Modules are **not** listed in a config file. They are registered on the Foundati
 namespace Src\Foundation;
 
 use Pano\Foundation\Foundation;
+use Pano\Kernel\ModuleResolverEnum;
 use Src\Modules\Default\DefaultModule;
 
 class DefaultFoundation extends Foundation
 {
     protected static array $modules = [
-        '' => DefaultModule::class,   // root module
+        '' => DefaultModule::class,   // root module (PATH)
+        // 'blog' => [
+        //     'class'    => \Src\Modules\Blog\BlogModule::class,
+        //     'resolver' => ModuleResolverEnum::PATH,
+        // ],
     ];
 
     public static function exception(): string
@@ -175,7 +180,7 @@ class DefaultFoundation extends Foundation
 }
 ```
 
-Add more keys as you add modules (e.g. `'blog' => BlogModule::class`).
+Add more keys as you add modules. Resolvers: `PATH` (default), `SUBDOMAIN`, `HOST`, `QUERY`, `HEADER`.
 
 ---
 
@@ -190,7 +195,7 @@ Add more keys as you add modules (e.g. `'blog' => BlogModule::class`).
 | **Interceptor** | Runs before/after the handler on a route |
 | **Command** | CLI action returning `ResultCodeEnum` |
 
-Default path resolution: first URL segment = module key; empty key `''` serves `/`.
+Default resolution is `PATH` (first URL segment = module key); empty key `''` serves `/`. Other strategies: `SUBDOMAIN`, `HOST`, `QUERY`, `HEADER`.
 
 ---
 

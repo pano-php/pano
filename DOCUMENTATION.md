@@ -288,7 +288,7 @@ You may add `timezone` and other keys as needed; `Boot` reads
 ### Module registry (not config)
 
 Module key → class mapping lives on **`DefaultFoundation::$modules`**, not in
-`config/modules.php`:
+`config/modules.php`. Class string defaults to `PATH`; or use `['class' => …, 'resolver' => ModuleResolverEnum::…]`:
 
 ```php
 // src/Foundation/DefaultFoundation.php
@@ -347,12 +347,18 @@ $view = new View(path('public'));  // BASE_PATH/public
 namespace Src\Foundation;
 
 use Pano\Foundation\Foundation;
+use Pano\Kernel\ModuleResolverEnum;
 use Src\Modules\Default\DefaultModule;
 
 class DefaultFoundation extends Foundation
 {
     protected static array $modules = [
-        '' => DefaultModule::class,
+        '' => DefaultModule::class,  // PATH by default
+        // Example of an explicit resolver:
+        // 'blog' => [
+        //     'class'    => \Src\Modules\Blog\BlogModule::class,
+        //     'resolver' => ModuleResolverEnum::PATH,
+        // ],
     ];
 
     public static function exception(): string
@@ -366,14 +372,9 @@ class DefaultFoundation extends Foundation
 - Registers the root module under the empty key `''`.
 - Overrides the exception class so HTML errors use `public/error.php`.
 
-To use subdomain resolution, override:
-
-```php
-public static function isPathResolver(): bool
-{
-    return false;
-}
-```
+Module resolution is **per key** via `ModuleResolverEnum`: `PATH` (default), `SUBDOMAIN`,
+`HOST`, `QUERY`, `HEADER`. Match order: HOST → SUBDOMAIN → PATH → QUERY → HEADER.
+Override `param()` on the Foundation if you need a different query/header name than `module`.
 
 ---
 
@@ -439,15 +440,16 @@ $this->name();        // "DefaultModule"
 
 ### Module resolution
 
-Default: **path** resolver (`isPathResolver() === true`).
+Default entries use **`ModuleResolverEnum::PATH`** (first URL segment = module key).
 
 | URL | Module key | Route path |
 |-----|------------|------------|
-| `/` | `''` | `/` |
-| `/blog/posts/12` | `blog` | `/posts/12` |
+| `/` | `''` | (empty / root) |
+| `/blog/posts/12` | `blog` | `posts/12` |
 
-Register every reachable key in `DefaultFoundation::$modules`.
-
+Register every reachable key in `DefaultFoundation::$modules`. For non-path strategies
+use the array form with `class` + `resolver` (`PATH`, `SUBDOMAIN`, `HOST`, `QUERY`, `HEADER`).
+See the framework documentation for full matching rules and priority order.
 ---
 
 ## 12. Packages
