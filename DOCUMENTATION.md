@@ -228,8 +228,10 @@ Entry point (public/index.php / pano)
    │
    ▼
 Boot::__construct($basePath, DefaultFoundation)
-   ├── define BASE_PATH, FOUNDATION
-   ├── envLoader()            → parses .env
+   ├── define BASE_PATH
+   ├── envLoader()            → parses .env into $_ENV
+   ├── configLoader()         → loads config/*.php into $_ENV['#_configs_#']
+   ├── define FOUNDATION
    ├── debug / timezone       → from config('app.*')
    │
    ▼
@@ -238,7 +240,7 @@ Boot::run($_SERVER | $argv)
    │
    ▼
 dispatcher()
-   ├── request->getModule()              → path or subdomain key
+   ├── request->getModule()              → ModuleResolverEnum match
    ├── DefaultFoundation::module($key)   → module class
    ├── new Module($request, FOUNDATION)  → packages injected in ctor
    ├── setRouter() → importPackages() → setup()
@@ -259,7 +261,7 @@ Termination (CLI exit code / process exit)
 ## 7. Configuration
 
 All configuration lives under `config/*.php` relative to `BASE_PATH`.  
-Files are loaded lazily by the `config()` helper.
+`Boot::configLoader()` loads them at bootstrap into `$_ENV['#_configs_#']`; `config()` reads from that cache.
 
 ### `config/app.php` (shipped)
 
@@ -328,7 +330,7 @@ Provided by the framework (autoloaded):
 |----------|-------------|
 | `env(string $key, mixed $default = null): mixed` | Environment variable |
 | `config(string $key, mixed $default = null): mixed` | Config with dot notation |
-| `url(string $path): string` | Absolute URL using `app.url` |
+| `url(string $path, ?string $moduleParam = null): string` | Absolute URL; optional module key uses resolver |
 | `path(string $path): string` | Absolute filesystem path under `BASE_PATH` |
 | `currentUrl(): string` | Current request URL |
 | `dd(...$args): void` | Dump and die |

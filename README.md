@@ -121,6 +121,7 @@ Both entry points pass the project base path and a custom Foundation into Boot:
 | `PANO_STARTED` | Request start timestamp (microtime) |
 | `$basePath` / `BASE_PATH` | Project root (set by Boot) |
 | `FOUNDATION` | Active Foundation instance (set by Boot) |
+| `config()` | Values from `config/*.php` loaded at bootstrap |
 
 ---
 
